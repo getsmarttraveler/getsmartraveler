@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GetSmartTraveler – AI-Powered Travel Content</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --dark: #0D0D0D;
+    --cream: #F5F0E8;
+    --mid: #1A1A1A;
+    --text: #E8E0D0;
+    --muted: #888;
+  }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--dark);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    padding: 1.2rem 3rem;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(13,13,13,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201,168,76,0.15);
+  }
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.02em;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--muted); text-decoration: none;
+    font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    text-align: center;
+    padding: 8rem 2rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 60%, rgba(201,168,76,0.08) 0%, transparent 70%);
+  }
+  .hero-tag {
+    font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.5rem;
+    border: 1px solid rgba(201,168,76,0.3);
+    padding: 0.4rem 1.2rem; border-radius: 2rem;
+    display: inline-block;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 8vw, 7rem);
+    font-weight: 900; line-height: 1.0;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 span { color: var(--gold); }
+  .hero p {
+    font-size: 1.15rem; color: var(--muted);
+    max-width: 560px; line-height: 1.7;
+    margin-bottom: 3rem;
+  }
+  .btn {
+    background: var(--gold); color: var(--dark);
+    padding: 0.9rem 2.5rem; border-radius: 0.4rem;
+    font-weight: 600; font-size: 0.9rem;
+    text-decoration: none; letter-spacing: 0.05em;
+    transition: opacity 0.2s, transform 0.2s;
+    display: inline-block;
+  }
+  .btn:hover { opacity: 0.88; transform: translateY(-2px); }
+
+  /* FEATURES */
+  .features {
+    padding: 6rem 3rem;
+    max-width: 1100px; margin: 0 auto;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem; text-align: center;
+    margin-bottom: 0.8rem;
+  }
+  .section-sub {
+    text-align: center; color: var(--muted);
+    margin-bottom: 4rem; font-size: 1rem;
+  }
+  .grid-3 {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .card {
+    background: var(--mid);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 1rem; padding: 2rem;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .card:hover { border-color: rgba(201,168,76,0.3); transform: translateY(-4px); }
+  .card-icon { font-size: 2rem; margin-bottom: 1rem; }
+  .card h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 0.6rem; }
+  .card p { color: var(--muted); font-size: 0.9rem; line-height: 1.6; }
+
+  /* HOW IT WORKS */
+  .how {
+    padding: 6rem 3rem;
+    background: var(--mid);
+  }
+  .how-inner { max-width: 800px; margin: 0 auto; }
+  .steps { display: flex; flex-direction: column; gap: 2rem; margin-top: 3rem; }
+  .step { display: flex; gap: 1.5rem; align-items: flex-start; }
+  .step-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem; font-weight: 900;
+    color: var(--gold); opacity: 0.4;
+    min-width: 3rem; line-height: 1;
+  }
+  .step-content h4 { font-size: 1rem; font-weight: 600; margin-bottom: 0.4rem; }
+  .step-content p { color: var(--muted); font-size: 0.9rem; line-height: 1.6; }
+
+  /* ABOUT */
+  .about {
+    padding: 6rem 3rem;
+    max-width: 800px; margin: 0 auto;
+    text-align: center;
+  }
+  .about p { color: var(--muted); line-height: 1.8; font-size: 1rem; margin-top: 1.5rem; }
+
+  /* CONTACT */
+  .contact {
+    padding: 4rem 3rem;
+    background: var(--mid);
+    text-align: center;
+  }
+  .contact a { color: var(--gold); text-decoration: none; }
+  .contact a:hover { text-decoration: underline; }
+
+  /* FOOTER */
+  footer {
+    padding: 2rem 3rem;
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    font-size: 0.8rem; color: var(--muted);
+    flex-wrap: wrap; gap: 1rem;
+  }
+  footer a { color: var(--muted); text-decoration: none; margin-left: 1.5rem; }
+  footer a:hover { color: var(--gold); }
+
+  @media (max-width: 600px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .features, .about, .contact { padding: 4rem 1.5rem; }
+    footer { flex-direction: column; text-align: center; }
+    footer a { margin: 0; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">GetSmartTraveler</div>
+  <ul class="nav-links">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-tag">AI-Powered Travel Content Platform</div>
+  <h1>Travel Smarter.<br><span>Create Faster.</span></h1>
+  <p>GetSmartTraveler automates the creation and publishing of high-quality travel content across social media platforms using advanced AI technology.</p>
+  <a href="#features" class="btn">Explore Features</a>
+</section>
+
+<section class="features" id="features">
+  <h2 class="section-title">What We Do</h2>
+  <p class="section-sub">Automated travel content, from idea to publish</p>
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-icon">✈️</div>
+      <h3>Destination Discovery</h3>
+      <p>Our system automatically selects and researches travel destinations to create fresh, engaging content every day.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🤖</div>
+      <h3>AI Content Generation</h3>
+      <p>Using advanced language models, we generate compelling captions, hooks, and scripts tailored for each social platform.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🎨</div>
+      <h3>Visual Creation</h3>
+      <p>AI-generated imagery brings each destination to life with stunning visuals that capture attention and inspire wanderlust.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">📱</div>
+      <h3>Multi-Platform Publishing</h3>
+      <p>Content is automatically formatted and published to TikTok, Instagram, and other platforms for maximum reach.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔗</div>
+      <h3>Affiliate Integration</h3>
+      <p>Seamlessly integrates with GetYourGuide and Booking.com affiliate programs to monetize travel recommendations.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">📊</div>
+      <h3>Content Logging</h3>
+      <p>Every piece of content is logged and tracked, giving full visibility into publishing history and performance.</p>
+    </div>
+  </div>
+</section>
+
+<section class="how" id="how">
+  <div class="how-inner">
+    <h2 class="section-title" style="text-align:center">How It Works</h2>
+    <p class="section-sub">A fully automated content pipeline</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <h4>Destination Selection</h4>
+          <p>The system pulls travel destinations from a curated database and randomly selects one for content creation.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <h4>AI Content Creation</h4>
+          <p>OpenAI generates platform-optimized captions, hooks, video scripts, and hashtags for the selected destination.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <h4>Image Generation</h4>
+          <p>Stability AI creates a unique, high-quality image that visually represents the destination.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-content">
+          <h4>Publishing</h4>
+          <p>The content is automatically published to TikTok via the Content Posting API with affiliate links included.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <h2 class="section-title">About GetSmartTraveler</h2>
+  <p>GetSmartTraveler is a travel content automation platform designed to help travel creators and brands consistently publish high-quality content without the manual effort. We combine AI technology with travel expertise to deliver content that inspires, informs, and converts.</p>
+  <p>Our platform integrates with leading social media APIs and affiliate networks to create a seamless end-to-end content workflow — from idea to published post.</p>
+</section>
+
+<section class="contact" id="contact">
+  <h2 class="section-title">Get In Touch</h2>
+  <p style="color: var(--muted); margin-top: 1rem;">For any questions or inquiries, contact us at:</p>
+  <p style="font-size: 1.2rem; margin-top: 0.8rem;"><a href="mailto:getsmarttraveler@outlook.com">getsmarttraveler@outlook.com</a></p>
+</section>
+
+<footer>
+  <div>© 2026 GetSmartTraveler. All rights reserved.</div>
+  <div>
+    <a href="privacy-policy.html">Privacy Policy</a>
+    <a href="terms-of-service.html">Terms of Service</a>
+  </div>
+</footer>
+
+</body>
+</html>
